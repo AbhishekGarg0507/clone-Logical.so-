@@ -11,7 +11,7 @@ body,html{
     font-family: 'Gilroy',sans-serif;
 }
 header{
-    position: absolute;
+    position: fixed;
     width: 50%;
     display: flex;
     justify-content: space-between;
@@ -21,14 +21,14 @@ header{
 
 header h2{
     color: hsla(155, 100%, 30%, 0.863);
-    font-size: 40px;
+    font-size: 3rem;
 }
 h1{
     font-size: 110px;
     margin-bottom: 1rem;
 }
 p{
-    font-size: 35px;
+    font-size: 30px;
     /* line-height: 5px; */
 }
 .full-screen-section{
@@ -63,7 +63,45 @@ p{
     );
 }
 
+
+.bottom-section{
+    display: flex;
+    text-align: start;
+    padding: 0;
+}
+.bottom-section .left{
+    padding: 4rem;
+    width: 65%;
+}
+.bottom-section .right{
+    height: 100vh;
+    width: 35%;
+    background: url(dark-bg.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.footer{
+    display: flex;
+    bottom: 0;
+    align-items: baseline;
+    justify-content: flex-start;
+    margin-top: 60px;
+}
+.footer>a{
+    color: #141616;
+    font-size: 14px;
+    text-decoration: none;
+    margin-right: 50px;
+}
+.footer>h5{
+    font-size: 14px;
+    color: #989D9D;
+}
 @media(width <= 1000px){
+    header{
+        width: 100%;
+    }
     .top-section .right{
         display: none;
     }
@@ -77,6 +115,11 @@ p{
     }
 
     h1{
-        font-size: 72px;
+        font-size: 80px;
     }
 }
+
+:root{
+    --scroll:0;
+}
+
