@@ -18,8 +18,10 @@ header{
     align-items: center;
     padding: 0 30px;
     z-index: 99;
+    mix-blend-mode: difference;
+    filter: invert(100%);
+    transition: all cubic-bezier(0.19, 1, 0.22, 1) .2s;
 }
-
 header h2{
     color: hsla(155, 100%, 30%, 0.863);
     font-size: 3rem;
@@ -53,17 +55,42 @@ p{
 }
 
 .top-section .left{
-    background-color: rgb(248, 250, 249);
+    background-color: rgb(248, 250, 249,var(--background-opacity));
 }
 
 .top-section .right{
+    position: relative;
     background: linear-gradient(
         210.65deg,
-        rgb(152,157,157) 0%,
-        rgb(189,194,194) 100%
+        rgb(152,157,157,var(--background-opacity)) 0%,
+        rgb(189,194,194,var(--background-opacity)) 100%
     );
 }
 
+.top-section .right .elem>img{
+    overflow-x: hidden;
+    position: absolute;
+}
+.elem img:nth-child(1){
+    transform: translateX(0);
+    translate: 5% -33%;
+   width: 45rem;
+}
+.elem img:nth-child(2){
+    transform: translateY( 0);
+    translate: -22% 42% ;
+    width: 40rem;
+}
+.elem img:nth-child(3){
+    transform: translateY(0);
+    translate: -9% 65%;
+    width: 28rem;
+}
+.elem img:nth-child(4){
+    transform: translate(0);
+    translate: 81% 21% ;
+    width: 25rem;
+}
 
 .bottom-section{
     display: flex;
@@ -99,6 +126,11 @@ p{
     font-size: 14px;
     color: #989D9D;
 }
+@supports(mix-blend-mode: difference){
+    header, #mask{
+        color: #141616;
+    }
+}
 @media(width <= 1000px){
     header{
         width: 100%;
@@ -125,7 +157,36 @@ p{
 }
 
 .top-section{
+    overflow: hidden;
     position: sticky;
     top: 0;
-    translate:0 -50%;
+    translate:0 calc(-1%  * (max(var(--scroll),25) - 25) *100 / 75 );
+
+    /* 
+    (oldval - oldmin)* newRange / oldRange + newMininum
+    */
+    --background-opacity: calc(100% - 1%  * min(var(--scroll),35) *100 / 35 );
+
+    --translate-y: calc( -1px  * min(var(--scroll),200) * 1000 / 200);
+    --translate-x: calc( 1px  * min(var(--scroll),200) * 800 / 200);
+    --translate-2: calc(-(var(--translate-x)) , var(--translate-y)-50px);
+}
+header{
+    width:calc(1% * (min(var(--scroll),50) * 100 / 50));
+}
+header svg{
+    rotate:calc(1deg * (max(var(--scroll),0) * 100 ))
+}
+
+.elem img:nth-child(1){
+    transform: translateX(var(--translate-x));
+}
+.elem img:nth-child(2){
+    transform: translateY( var(--translate-y));
+}
+.elem img:nth-child(3){
+    transform: translateY(var(--translate-y));
+}
+.elem img:nth-child(4){
+    transform: translate(var(--translate-x),var(--translate-y));
 }
