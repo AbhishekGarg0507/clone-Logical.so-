@@ -109,20 +109,21 @@ p{
     background-position: center;
 }
 
-.footer{
+footer{
     display: flex;
     bottom: 0;
     align-items: baseline;
     justify-content: flex-start;
-    margin-top: 60px;
+    margin-top: -90px;
+    padding: 0 70px;
 }
-.footer>a{
+footer>a{
     color: #141616;
     font-size: 14px;
     text-decoration: none;
     margin-right: 50px;
 }
-.footer>h5{
+footer>h5{
     font-size: 14px;
     color: #989D9D;
 }
@@ -150,6 +151,27 @@ p{
     h1{
         font-size: 80px;
     }
+
+    .bottom-section{
+        flex-direction: column;
+        height: fit-content;
+    }
+    .bottom-section .left{
+        text-align: center;
+        width: 100%;
+    }
+    .bottom-section .right{
+        height: 60vh;
+        width: 100%;
+    }
+    .bottom-section .footer{
+        display: none;
+    }
+
+    footer{
+        margin: 0;
+        padding: 0 40px;
+    }
 }
 
 :root{
@@ -168,7 +190,7 @@ p{
     --background-opacity: calc(100% - 1%  * min(var(--scroll),35) *100 / 35 );
 }
 header{
-    width:calc(1% * (min(var(--scroll),50) * 100 / 50));
+    width:calc(1% * (max(var(--scroll), 50) * 40 / 40 ));
 }
 header svg{
     rotate:calc(1deg * (max(var(--scroll),0) * 100 ))
