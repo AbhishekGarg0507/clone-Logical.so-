@@ -38,6 +38,7 @@ p{
     height: 100vh;
     text-align: center;
     padding: 1rem;
+    position: relative;
 }
 
 .top-section .left,
@@ -132,6 +133,86 @@ footer>h5{
         color: #141616;
     }
 }
+
+
+:root{
+    --scroll:0;
+}
+
+.top-section{
+    overflow: hidden;
+    position: sticky;
+    top: 0;
+    translate:0 calc(-1%  * (max(var(--scroll),25) - 25) *100 / 75 );
+
+    /* 
+    (oldval - oldmin)* newRange / oldRange + newMininum
+    */
+    --background-opacity: calc(100% - 1%  * min(var(--scroll),35) *100 / 35 );
+}
+header{
+    --valueH: min(var(--scroll),100)*48 / 100;
+    width: calc(50vw + 1vw*var(--valueH));
+}
+header svg{
+    rotate:calc(1deg * (max(var(--scroll),0) * 50 ))
+}
+
+.elem img:nth-child(1){
+    transform: translateX(calc( 1px  * min(var(--scroll),200) * 800 / 200));
+}
+.elem img:nth-child(2){
+    transform: translateY(calc(-1px  * min(var(--scroll),250) * 1000 / 250));
+}
+.elem img:nth-child(3){
+    transform: translateY(calc(-1px  * min(var(--scroll),100) * 1000 / 100));
+}
+.elem img:nth-child(4){
+    transform: translate(
+        calc( 1px  * min(var(--scroll),200) * 800 / 200),
+        calc( -1px  * min(var(--scroll),200) * 1000 / 200)
+    );
+}
+.imgs > *{
+    position: fixed;
+    width: 100vw;
+    bottom: 0;
+    z-index: 10;
+    translate: 0 100%;
+    transition:  translate 250ms ease-in-out;
+}
+
+.imgs > .show{
+    translate: 0 0;
+}
+
+.imgs > .top-section-img{
+    --value: min(var(--scroll),30)*50 / 30;
+    width: calc(50vw + 1vw*var(--value));
+    transform: translateY( calc(50% - 1%*var(--value)));
+}
+/* 
+    (oldval - oldmin)* newRange / oldRange + newMininum
+
+    oldval is the old value for the scroll that is the initial scroll (in our case is --value)
+    old min is the value of the scroll that is from where we want to start tha scroll
+    new range is the range where we want to go furter to screen 
+    old range is the range to which we want to scroll 
+    new minimum is the new  minimun value for the scroll 
+    */
+.imgs > .bottom-section-img{
+    --value: min(var(--scrollFull),30)* 50 / 30;
+    transform: translateY( calc(50% - 1%*var(--value)));
+}
+
+.imgs > .lastimg{
+    translate: 0 74%;
+}
+[data-img-to-show]{
+    position: absolute;
+    top: 20%;
+}
+
 @media(width <= 1000px){
     header{
         width: 100%;
@@ -172,42 +253,8 @@ footer>h5{
         margin: 0;
         padding: 0 40px;
     }
-}
 
-:root{
-    --scroll:0;
-}
-
-.top-section{
-    overflow: hidden;
-    position: sticky;
-    top: 0;
-    translate:0 calc(-1%  * (max(var(--scroll),25) - 25) *100 / 75 );
-
-    /* 
-    (oldval - oldmin)* newRange / oldRange + newMininum
-    */
-    --background-opacity: calc(100% - 1%  * min(var(--scroll),35) *100 / 35 );
-}
-header{
-    width:calc(1% * (max(var(--scroll), 50) * 40 / 40 ));
-}
-header svg{
-    rotate:calc(1deg * (max(var(--scroll),0) * 100 ))
-}
-
-.elem img:nth-child(1){
-    transform: translateX(calc( 1px  * min(var(--scroll),200) * 800 / 200));
-}
-.elem img:nth-child(2){
-    transform: translateY(calc(-1px  * min(var(--scroll),250) * 1000 / 250));
-}
-.elem img:nth-child(3){
-    transform: translateY(calc(-1px  * min(var(--scroll),100) * 1000 / 100));
-}
-.elem img:nth-child(4){
-    transform: translate(
-        calc( 1px  * min(var(--scroll),200) * 800 / 200),
-        calc( -1px  * min(var(--scroll),200) * 1000 / 200)
-    );
+    .imgs > .top-section-img{
+        width: 100vw;
+    }
 }
